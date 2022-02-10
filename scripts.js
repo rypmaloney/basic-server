@@ -19,7 +19,6 @@ const server = http.createServer((req,res)=>{
         default :
             path+="404.html";
             break;
-
     }
 
     fs.readFile(path, (err, data) =>{
@@ -27,11 +26,18 @@ const server = http.createServer((req,res)=>{
             console.log(err)
         } else {
             res.write(data)
+
+        }
+    })
+    res.setHeader("Content-Type", "text/html")
+    fs.readFile("./style.css", (err, data) =>{
+        if (err){
+            console.log(err)
+        } else {
+            res.write(data)
             res.end()
         }
     })
-
-    
 
 })
 
