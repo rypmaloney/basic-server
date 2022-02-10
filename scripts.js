@@ -1,20 +1,29 @@
-const http = require("http")
-const fs = require("fs")
+const http = require("http");
+const fs = require("fs");
+const path = require('path')
 
 const port = 8080;
 
-const express = require('express')
-const app = express()
+const express = require("express");
+const app = express();
 
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'))
+  })
 
-app.get('/', function(req, res) {
-    res.send('./routes/index.html')
-  });
+app.get("/contact/", function (req, res) {
+    res.sendFile(path.join(__dirname, '/routes/contact.html'))
+});
+app.get("/about/", function (req, res) {
+    res.sendFile(path.join(__dirname, '/routes/about.html'))
+});
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, './routes/404.html'))
+  })
 
-app.listen(port, ()=>{
-    console.log("App is listening on port 8080")
-})
-
+app.listen(port, () => {
+    console.log("App is listening on port 8080");
+});
 
 // const server = http.createServer((req,res)=>{
 //     console.log(req.url)
